@@ -21,7 +21,8 @@ public class WebApp {
 		        System.err.println("Usage: JavaWordCount <file>");
 		        System.exit(1);
 		    }
-		    SparkConf sparkConf = new SparkConf().setAppName("JavaWordCount");
+
+		    SparkConf sparkConf = new SparkConf().setAppName("SOME APP NAME").setMaster("local[2]").set("spark.executor.memory","1g");;
 		    JavaSparkContext ctx = new JavaSparkContext(sparkConf);
 		    
 		    JavaRDD<String> lines = ctx.textFile("hdfs://master-0.arena.ru:8020/tmp/hamlet.txt");
