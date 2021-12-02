@@ -29,7 +29,7 @@ public class WebApp {
 		    hadoopConfig.set("hadoop.job.ugi", "team0");
 		    JavaRDD<String> lines;
 		    if(args.length >0)
-		    	lines = ctx.textFile("hdfs://"+args[0]);
+		    	lines = ctx.textFile(args[0]);
 		    else
 		    	lines = ctx.textFile("hdfs:///tmp/hamlet.txt");
 		    JavaRDD<String> words 	
