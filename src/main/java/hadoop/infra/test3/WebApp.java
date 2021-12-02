@@ -20,8 +20,6 @@ public class WebApp {
 	
 	public static void main(String[] args) {
 		    SparkConf sparkConf = new SparkConf().setAppName("SOME APP NAME").setMaster("local[2]").set("spark.executor.memory","1g");;
-		   
-		   
 		    JavaSparkContext ctx = new JavaSparkContext(sparkConf);
 		    Configuration hadoopConfig = ctx.hadoopConfiguration();
 		    hadoopConfig.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
@@ -29,8 +27,11 @@ public class WebApp {
 		    hadoopConfig.addResource(new Path("conf/core-site.xml"));
 		    hadoopConfig.addResource(new Path("conf/hdfs-site.xml"));
 		    hadoopConfig.set("hadoop.job.ugi", "team0");
-		    
-		    JavaRDD<String> lines = ctx.textFile("hdfs://./hamlet.txt");
+		    JavaRDD<String> lines;
+		    if(args.length >0)
+		    	lines = ctx.textFile("hdfs://"+args[0]);
+		    else
+		    	lines = ctx.textFile("hdfs:///tmp/hamlet.txt");
 		    JavaRDD<String> words 	
 		      = lines.flatMap(s -> Arrays.asList(s.split(" ")).iterator());
 		    JavaPairRDD<String, Integer> ones 
