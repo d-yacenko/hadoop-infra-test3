@@ -28,6 +28,7 @@ public class WebApp {
 		    hadoopConfig.set("fs.file.impl",org.apache.hadoop.fs.LocalFileSystem.class.getName());
 		    hadoopConfig.addResource(new Path("conf/core-site.xml"));
 		    hadoopConfig.addResource(new Path("conf/hdfs-site.xml"));
+		    hadoopConfig.set("hadoop.job.ugi", "team0");
 		    
 		    JavaRDD<String> lines = ctx.textFile("hdfs://master-2.arena.ru:8020/tmp/hamlet.txt");
 		    JavaRDD<String> words 	
