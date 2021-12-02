@@ -19,8 +19,7 @@ public class WebApp {
 	// https://dzone.com/articles/the-magic-of-apache-spark-in-java-1
 	
 	public static void main(String[] args) {
-//	    SparkConf sparkConf = new SparkConf().setAppName("SOME APP NAME").setMaster("local[2]").set("spark.executor.memory","1g");;
-	    SparkConf sparkConf = new SparkConf().setAppName("SOME APP NAME");
+	    SparkConf sparkConf = new SparkConf().setAppName("SOME APP NAME").setMaster("local[2]").set("spark.executor.memory","1g");;
 		    JavaSparkContext ctx = new JavaSparkContext(sparkConf);
 		    Configuration hadoopConfig = ctx.hadoopConfiguration();
 		    hadoopConfig.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
