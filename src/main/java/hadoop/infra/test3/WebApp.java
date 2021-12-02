@@ -30,7 +30,7 @@ public class WebApp {
 		    hadoopConfig.addResource(new Path("conf/hdfs-site.xml"));
 		    hadoopConfig.set("hadoop.job.ugi", "team0");
 		    
-		    JavaRDD<String> lines = ctx.textFile("hdfs://master-2.arena.ru:8020/tmp/hamlet.txt");
+		    JavaRDD<String> lines = ctx.textFile("hdfs://hamlet.txt");
 		    JavaRDD<String> words 	
 		      = lines.flatMap(s -> Arrays.asList(s.split(" ")).iterator());
 		    JavaPairRDD<String, Integer> ones 
