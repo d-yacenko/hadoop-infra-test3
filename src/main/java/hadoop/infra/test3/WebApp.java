@@ -4,6 +4,8 @@ package hadoop.infra.test3;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -23,10 +25,16 @@ public class WebApp {
 		    }
 
 		    SparkConf sparkConf = new SparkConf().setAppName("SOME APP NAME").setMaster("local[2]").set("spark.executor.memory","1g");;
+		   
+		   
 		    JavaSparkContext ctx = new JavaSparkContext(sparkConf);
+		    Configuration hadoopConfig = ctx.hadoopConfiguration();
+		    hadoopConfig.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+		    hadoopConfig.set("fs.file.impl",org.apache.hadoop.fs.LocalFileSystem.class.getName());
+		    hadoopConfig.addResource(new Path("conf/core-site.xml"));
+		    hadoopConfig.addResource(new Path("conf/hdfs-site.xml"));
 		    
 		    JavaRDD<String> lines = ctx.textFile("hdfs://master-0.arena.ru:8020/tmp/hamlet.txt");
-
 		    JavaRDD<String> words 	
 		      = lines.flatMap(s -> Arrays.asList(s.split(" ")).iterator());
 		    JavaPairRDD<String, Integer> ones 
