@@ -19,11 +19,6 @@ public class WebApp {
 	// https://dzone.com/articles/the-magic-of-apache-spark-in-java-1
 	
 	public static void main(String[] args) {
-		 if (args.length < 1) {
-		        System.err.println("Usage: JavaWordCount <file>");
-		        System.exit(1);
-		    }
-
 		    SparkConf sparkConf = new SparkConf().setAppName("SOME APP NAME").setMaster("local[2]").set("spark.executor.memory","1g");;
 		   
 		   
